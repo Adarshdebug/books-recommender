@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #2f3640;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background-color: #273c75;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #40739e;
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px 40px 20px;
+        }
+
+        .card {
+            background-color: white;
+            width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 10px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            height: 200px;
+            width: 140px;
+            border-radius: 5px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin: 10px 0 5px;
+        }
+
+        .card p {
+            color: gray;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            background-color: #2f3640;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .back-link a:hover {
+            background-color: #40739e;
+        }
+    </style>
+</head>
+<body>
+    <h1>📖 Book Recommendations</h1>
+
+    <div class="search-container">
+        <form action="/recommend_books" method="post">
+            <input type="text" name="user_input" placeholder="Enter a book name" required>
+            <input type="submit" value="Recommend">
+        </form>
+    </div>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+
+    {% if data %}
+        <div class="container">
+            {% for book in data %}
+            <div class="card">
+                <img src="{{ book[2] }}" alt="{{ book[0] }}">
+                <h3>{{ book[0] }}</h3>
+                <p><i>{{ book[1] }}</i></p>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="back-link">
+        <a href="/">← Back to Home</a>
+    </div>
+</body>
+</html>
